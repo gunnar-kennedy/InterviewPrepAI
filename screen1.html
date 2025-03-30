@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Interview</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+
+<body>
+    <header>
+        <h1>Mock Interview Application</h1>
+    </header>
+
+    <div id = "content">
+        <div class = "section">
+            <label for="pdf-upload-input">Upload Resume PDF:</label>
+            <br>
+            <input type="file" id="uploadedPDF" accept=".pdf">
+            <iframe id="pdf-preview" style="display: none; height: 500px; width: 80%;padding-left: 10%;padding-top: 10%;"></iframe>
+        </div>
+        <div class = "section">
+            <label> Enter Job Description:</label>
+            <textarea placeholder="Enter your text here..."></textarea>
+        </div>
+        <div class = "section">            
+            <button id="StartInterviewButton" onclick="location.href='screen2.html'">Begin Interview with Ai Interviewer</button>
+        </div>
+        
+        
+    </div>
+
+
+   
+</body>
+<script src="script1.js"></script>
+</html>
