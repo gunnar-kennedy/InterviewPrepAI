@@ -26,10 +26,9 @@
 
         recognition.onresult = (event) => {
 
-            transcript = event.results[event.results.length - 1][0].transcript;
+            newTranscript = event.results[event.results.length - 1][0].transcript;
+            transcript += newTranscript; // Append the new transcript to the existing one
             document.getElementById('output').textContent = transcript;
-            OldTranscript += transcript + ' '; // Update the old transcript for comparison
-            transcript = '';
         };
 
         recognition.onerror = (event) => {
@@ -47,6 +46,8 @@
                 recognition.stop();
                 document.getElementById('record-btn').textContent = "Start Recording";
                 isRecording = false;
+                transcript = '';
+                OldTranscript += transcript + '\n'; // Append the current transcript to OldTranscript when stopping
             }
         });
     </script>
