@@ -31,6 +31,7 @@ document.getElementById("StartInterviewButton").addEventListener("click", functi
 
     const formData = new FormData();
     formData.append("resume", file);
+    formData.append("jobDescription", jobDescription);  // Send the job description along with the file
 
     fetch('/upload', {
         method: 'POST',
