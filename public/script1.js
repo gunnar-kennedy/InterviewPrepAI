@@ -1,43 +1,54 @@
 document.getElementById("uploadedPDF").addEventListener("change", function(event) {
-
     const file = event.target.files[0];
     if (file) {
-        // prevoew the file
         const fileURL = URL.createObjectURL(file);
         const pdfPreview = document.getElementById("pdf-preview");
-        pdfPreview.src = fileURL; // Set the source of the iframe to the file URL
-        pdfPreview.style.display = "block"; // Show the iframe
+        pdfPreview.src = fileURL;
+        pdfPreview.style.display = "block";
     } else {
         console.log("No file selected.");
     }
 });
 
-document.getElementById("resume-form").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the form from reloading the page
+document.getElementById("StartInterviewButton").addEventListener("click", function(event) {
+    event.preventDefault();
+
+    const fileInput = document.getElementById("uploadedPDF");
+    const jobDescription = document.querySelector("textarea").value.trim();
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert("Please upload your resume before proceeding.");
+        window.location.href = 'screen1.html';
+        return;
+    }
+
+    if (!jobDescription) {
+        alert("Please enter a job description before proceeding.");
+        window.location.href = 'screen1.html';
+        return;
+    }
 
     const formData = new FormData();
-    const fileInput = document.getElementById("uploadedPDF");
-    const file = fileInput.files[0];
-    
-    if (file) {
-        formData.append("resume", file); // Append the resume to the form data
+    formData.append("resume", file);
 
-        fetch('/upload', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert("Resume uploaded successfully!");
-            } else {
-                alert("Error uploading resume.");
-            }
-        })
-        .catch(error => {
-            console.error('Error uploading file:', error);
-        });
-    } else {
-        alert("Please select a resume to upload.");
-    }
+    fetch('/upload', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Resume uploaded successfully! Redirecting...");
+            window.location.href = 'screen2.html';
+        } else {
+            alert("Error uploading resume. Please try again 1.");
+            window.location.href = 'screen1.html';
+        }
+    })
+    .catch(error => {
+        console.error('Error uploading file:', error);
+        alert("Error uploading resume. Please try again 2.");
+        window.location.href = 'screen1.html';
+    });
 });
