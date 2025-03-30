@@ -3,9 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Voice Recorder with Transcript</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p>Test YOG Supremeacy</p>
+    <h1>Voice Recorder</h1>
+    <button id="record-btn">Start Recording</button>
+
+    <h2>Transcript:</h2>
+    <div id="output"></div>
+
+    <script>
+        let isRecording = false;
+        let recognition = new webkitSpeechRecognition();
+        let transcript = ""; // Initialize an empty string to store the transcript
+        recognition.lang = 'en-US';
+        recognition.continuous = true;  // Ensure continuous speech recognition
+        recognition.interimResults = true;  // Get interim results while speaking
+
+        recognition.onresult = (event) => {
+            const newTranscript = event.results[event.results.length - 1][0].transcript;
+            transcript += newTranscript + ' ';  // Append the new transcript part
+            document.getElementById('output').textContent = transcript;  // Update the displayed transcript
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Error occurred in recognition: ' + event.error);
+            // Optionally, you can display an error message to the user
+            document.getElementById('output').textContent = "Error occurred during recognition.";
+        };
+
+        document.getElementById('record-btn').addEventListener('click', async () => {
+            if (!isRecording) {
+                transcript = "";  // Reset the transcript when starting a new recording
+                document.getElementById('output').textContent = "";  // Clear the displayed transcript
+                recognition.start();
+                document.getElementById('record-btn').textContent = "Stop Recording";
+                isRecording = true;
+            } else {
+                recognition.stop();  // Stop recording when clicked again
+                document.getElementById('record-btn').textContent = "Start Recording";
+                isRecording = false;
+            }
+        });
+    </script>
 </body>
 </html>
