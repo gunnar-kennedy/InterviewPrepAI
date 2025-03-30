@@ -14,40 +14,45 @@
     <div id="output"></div>
 
     <script>
-        isRecording = false;
-        recognition = new webkitSpeechRecognition();
-        recognition.continuous = true; 
-        recognition.interimResults = true; 
-        transcript = ""; 
+        let isRecording = false;
+        let recognition = new webkitSpeechRecognition();
+        recognition.continuous = true; // Keep recognizing speech continuously
+        recognition.interimResults = true; // Enable interim results
+        let transcript = ""; // Initialize transcript string
+        let oldTranscript = ""; // Store previous transcript when stopping
 
-        OldTranscript = ""; 
         recognition.lang = 'en-US';
 
-
         recognition.onresult = (event) => {
-
-            newTranscript = event.results[event.results.length - 1][0].transcript;
-            transcript += newTranscript; // Append the new transcript to the existing one
-            document.getElementById('output').textContent = transcript;
+            let finalTranscript = "";
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                // Only consider final results
+                if (event.results[i].isFinal) {
+                    finalTranscript += event.results[i][0].transcript + ' ';
+                }
+            }
+            // Update transcript with final results only (prevents duplication)
+            transcript += finalTranscript;
+            document.getElementById('output').textContent = transcript; // Display the updated transcript
         };
 
         recognition.onerror = (event) => {
             console.error('Error occurred in recognition: ' + event.error);
-            // Optionally, you can display an error message to the user
             document.getElementById('output').textContent = "Error occurred during recognition.";
         };
 
-        document.getElementById('record-btn').addEventListener('click', async () => {
+        document.getElementById('record-btn').addEventListener('click', () => {
             if (!isRecording) {
-                recognition.start();
+                recognition.start(); // Start recording
                 document.getElementById('record-btn').textContent = "Stop Recording";
                 isRecording = true;
             } else {
-                recognition.stop();
+                recognition.stop(); // Stop recording
                 document.getElementById('record-btn').textContent = "Start Recording";
                 isRecording = false;
-                transcript = '';
-                OldTranscript += transcript + '\n'; // Append the current transcript to OldTranscript when stopping
+
+                oldTranscript += transcript + '\n'; // Save the final transcript when stopping
+                transcript = ''; // Reset the current transcript after stopping
             }
         });
     </script>
