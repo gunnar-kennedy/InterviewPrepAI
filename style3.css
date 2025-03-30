@@ -2,9 +2,68 @@ body {
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+
     height: 100vh;
     text-align: center;
-    background: #4775c3;/* cant get a background I like will come back*/
+    background: linear-gradient(to bottom right, #ffe5e5 0%, #a9b5df 100%);
+    margin: 0;
+    overflow: hidden; 
+
+}
+html {
+    height: 100%; /* Ensure the html element takes full height */
+    width: 100%; /* Ensure the html element takes full width */
+    overflow: hidden; /* Prevent scrolling */
+}
+header {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    overflow: visible;
+    background-color: transparent;
+    color: #2D336B;
+    padding: 2vh;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
+    height: 10%;
+    width: 100%;
+    font-size: 2em; /* Font size for the header */
+    top: 0;
+    left: 0;
+    
+}
+#output-text {
+    width: 80%; /* Adjust width */
+    height: 200px; /* Adjust height */
+    font-size: 18px; /* Make text readable */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+#container {
+    width: 75%;
+    margin-left: 12.5%;
+    margin-top: 10%;
+    height: 50%;
+}
+#output-text {
+    width: 80%; /* Full width of the container */
+    height: 60%; /* Full height of the container */
+    font-size: 200%; /* Make text readable */
+    background-color: #f9f9f9; /* Light background for contrast */
+    color: #2D336B; /* Text color for readability */
+}
+
+button {
+    margin-left: 43%;
+    align-items: center; /* Centers vertically */
+    justify-content: center; /* Centers horizontally */
+    height: 10%;
+    width: 14%; /* Makes it responsive */
+    border-radius: 7%; /* Rounded corners */
+    background: linear-gradient(to right,#8b98d2, #7886C7);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3); /* Shadow effect */
+    color : #FFE5E5;
 }
